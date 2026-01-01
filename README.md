@@ -1,6 +1,6 @@
 # Task Management System
 
-A simple Laravel 11 CRUD app that allows users to create, view, edit, and delete tasks.
+A simple Laravel 12 CRUD app that allows users to create, view, edit, and delete tasks.
 
 ## Features
 - Add, Edit, Delete Tasks  
@@ -25,9 +25,6 @@ A simple Laravel 11 CRUD app that allows users to create, view, edit, and delete
 
 In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
 
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
 
 ## License
 
