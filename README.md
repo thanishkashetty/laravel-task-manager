@@ -5,7 +5,9 @@ A simple Laravel 11 CRUD app that allows users to create, view, edit, and delete
 ## Features
 - Add, Edit, Delete Tasks  
 - Mark tasks as Completed or Pending  
-- Priority levels (Low, Medium, High)  
+- Priority levels (Low, Medium, High)
+- isplay **Due Date** column & sort tasks by due date
+- Show **progress bar** (% of tasks completed)
 - Clean, responsive UI built with Bootstrap 5  
 
 ## Setup Instructions
