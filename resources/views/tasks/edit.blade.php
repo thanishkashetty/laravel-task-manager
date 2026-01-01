@@ -6,94 +6,104 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
         body {
-            background: linear-gradient(135deg, #3f72af, #dbe2ef);
+            background: linear-gradient(135deg, #f9f7f7, #dbe2ef, #3f72af);
             font-family: 'Poppins', sans-serif;
+            color: #333;
             min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
         }
-
-        .card {
-            width: 500px;
+        .container {
+            max-width: 700px;
+            background: #ffffffcc;
             border-radius: 20px;
+            padding: 40px;
             box-shadow: 0 8px 20px rgba(0,0,0,0.1);
-            border: none;
+            margin-top: 70px;
         }
-
-        .card-body {
-            padding: 35px;
-        }
-
-        h2 {
-            text-align: center;
-            color: #112d4e;
+        h1 {
             font-weight: 600;
+            color: #112d4e;
+            text-align: center;
             margin-bottom: 25px;
         }
-
         .btn-primary {
             background-color: #3f72af;
             border: none;
         }
-
         .btn-primary:hover {
             background-color: #265075;
         }
-
         .btn-secondary {
-            background-color: #9da9bb;
+            background-color: #adb5bd;
             border: none;
         }
-
-        .form-label {
+        .btn-secondary:hover {
+            background-color: #8c939b;
+        }
+        label {
             font-weight: 500;
             color: #112d4e;
+        }
+        .footer-text {
+            text-align: center;
+            color: #666;
+            font-size: 14px;
+            margin-top: 20px;
+        }
+        .form-control, .form-select {
+            border-radius: 10px;
         }
     </style>
 </head>
 <body>
-    <div class="card">
-        <div class="card-body">
-            <h2>Edit Task</h2>
+    <div class="container">
+        <h1>Edit Task</h1>
 
-            <form action="{{ route('tasks.update', $task->id) }}" method="POST">
-                @csrf
-                @method('PUT')
+        @if($errors->any())
+            <div class="alert alert-danger">
+                <ul class="mb-0">
+                    @foreach($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
 
-                <div class="mb-3">
-                    <label class="form-label">Title</label>
-                    <input type="text" name="title" value="{{ $task->title }}" class="form-control" required>
-                </div>
+        <form method="POST" action="{{ route('tasks.update', $task->id) }}">
+            @csrf
+            @method('PUT')
 
-                <div class="mb-3">
-                    <label class="form-label">Description</label>
-                    <textarea name="description" class="form-control" rows="3">{{ $task->description }}</textarea>
-                </div>
+            <div class="mb-3">
+                <label for="title" class="form-label">Task Title <span class="text-danger">*</span></label>
+                <input type="text" class="form-control" name="title" id="title" value="{{ old('title', $task->title) }}" required>
+            </div>
 
-                <div class="mb-3">
-                    <label class="form-label">Priority</label>
-                    <select name="priority" class="form-select" required>
-                        <option {{ $task->priority == 'Low' ? 'selected' : '' }}>Low</option>
-                        <option {{ $task->priority == 'Medium' ? 'selected' : '' }}>Medium</option>
-                        <option {{ $task->priority == 'High' ? 'selected' : '' }}>High</option>
+            <div class="mb-3">
+                <label for="description" class="form-label">Description</label>
+                <textarea class="form-control" name="description" id="description" rows="3">{{ old('description', $task->description) }}</textarea>
+            </div>
+
+            <div class="row mb-3">
+                <div class="col-md-6">
+                    <label for="priority" class="form-label">Priority <span class="text-danger">*</span></label>
+                    <select name="priority" id="priority" class="form-select" required>
+                        <option value="Low" {{ $task->priority == 'Low' ? 'selected' : '' }}>Low</option>
+                        <option value="Medium" {{ $task->priority == 'Medium' ? 'selected' : '' }}>Medium</option>
+                        <option value="High" {{ $task->priority == 'High' ? 'selected' : '' }}>High</option>
                     </select>
                 </div>
-
-                <div class="mb-3">
-                    <label class="form-label">Status</label>
-                    <select name="status" class="form-select" required>
-                        <option {{ $task->status == 'Pending' ? 'selected' : '' }}>Pending</option>
-                        <option {{ $task->status == 'Completed' ? 'selected' : '' }}>Completed</option>
-                    </select>
+                <div class="col-md-6">
+                    <label for="due_date" class="form-label">Due Date</label>
+                    <input type="date" name="due_date" id="due_date" class="form-control" value="{{ old('due_date', $task->due_date) }}">
                 </div>
+            </div>
 
-                <div class="d-flex justify-content-between mt-4">
-                    <a href="{{ route('tasks.index') }}" class="btn btn-secondary">Back</a>
-                    <button class="btn btn-primary">Update Task</button>
-                </div>
-            </form>
-        </div>
+            <div class="d-flex justify-content-between mt-4">
+                <a href="{{ route('tasks.index') }}" class="btn btn-secondary">Cancel</a>
+                <button type="submit" class="btn btn-primary">Update Task</button>
+            </div>
+        </form>
+
+        <p class="footer-text">© {{ date('Y') }} Task Manager | Designed by <b>Thanishka</b></p>
     </div>
 </body>
 </html>
